@@ -64,4 +64,68 @@ app.get("/janken", (req, res) => {
   res.render( 'janken', display );
 });
 
+app.get("/attimuite", (req, res) => {
+  let win = Number(req.query.win) || 0;  // 勝ち数
+  let total = Number(req.query.total) || 0;  // 総試合数
+  let playerDirection = req.query.direction;  // ユーザーの方向
+  const validDirections = ['上', '下', '左', '右'];
+  
+  // プレイヤーが方向を指定していない場合
+  if (!validDirections.includes(playerDirection)) {
+    return res.render('attimuite', {
+      win: win,
+      total: total,
+      errorMessage: '「上」、「下」、「左」、「右」のいずれかを入力してください。',
+      acchiResult: null  // acchiResultを渡す
+    });
+  }
+
+  // コンピュータのランダムな方向を決定
+  const cpuDirection = validDirections[Math.floor(Math.random() * validDirections.length)];
+
+  let acchiResult;
+  if (playerDirection === cpuDirection) {
+    acchiResult = 'あなたの勝ち！';
+    win += 1;  // 勝ち数を増やす
+  } else {
+    acchiResult = '引き分けです。';
+  }
+  total += 1;  // 試合数を増やす
+
+  // データをテンプレートに渡す
+  const display = {
+    playerDirection: playerDirection,
+    cpuDirection: cpuDirection,
+    acchiResult: acchiResult,
+    win: win,
+    total: total,
+    errorMessage: req.query.errorMessage || ''
+  };
+
+  res.render('attimuite', display);
+});
+app.get("/count", (req, res) => {
+const express = require('express');
+const app = express();
+const path = require('path');
+
+// EJSテンプレートエンジンの設定
+app.set('view engine', 'ejs');
+
+// 静的ファイルの提供（JavaScriptファイルなど）
+app.use('/js', express.static(path.join(__dirname, 'public/js')));
+
+// ルート
+app.get('/', (req, res) => {
+    res.render('count');
+})
+});
+
+
+
+
+
+
+
+
 app.listen(8080, () => console.log("Example app listening on port 8080!"));

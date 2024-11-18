@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>あっち向いてホイゲーム</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>あっち向いてホイゲーム</h1>
+    <p>「グー」、「チョキ」、「パー」のいずれかを入力してジャンケンを開始してください。</p>
+    <input type="text" id="playerInput" placeholder="例: グー">
+    <button onclick="startJanken()">ジャンケン</button>
+    <p id="jankenResult"></p>
+
+    <div id="attimuiteHoi" style="display: none;">
+        <p>ジャンケンに勝ったら、「上」、「下」、「左」、「右」のいずれかを選んでください。</p>
+        <input type="text" id="directionInput" placeholder="例: 上">
+        <button onclick="playAcchiMuiteHoi()">あっち向いてホイ</button>
+        <p id="attimuiteResult"></p>
+    </div>
+</body>
+</html>

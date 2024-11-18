@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文字数カウント</title>
+</head>
+<body>
+    <h1>文字数カウントツール</h1>
+    <p>テキストを入力してください：</p>
+    <input type="text" id="textInput" placeholder="ここに入力">
+    <button onclick="countCharacters()">カウント</button>
+    <p id="charCountResult"></p>
+
+    <script>
+        function countCharacters() {
+            const inputText = document.getElementById('textInput').value;
+            const charCount = inputText.length;
+            document.getElementById('charCountResult').textContent = `入力された文字数: ${charCount}`;
+        }
+    </script>
+</body>
+</html>

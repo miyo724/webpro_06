@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>あっち向いてホイゲーム</title>
+</head>
+<body>
+    <h1>あっち向いてホイゲーム</h1>
+
+    <% if (errorMessage) { %>
+        <p style="color: red;"><%= errorMessage %></p>
+    <% } %>
+
+    <% if (acchiResult) { %>
+        <p>あなたの方向は <%= playerDirection %> です。</p>
+        <p>コンピュータの方向は <%= cpuDirection %> です。</p>
+        <p><%= acchiResult %></p>
+        <p>現在 <%= total %> 試合中、<%= win %> 勝しています。</p>
+    <% } else { %>
+        <p>ゲームの結果はまだありません。</p>
+    <% } %>
+
+    <h2>次のゲームへ進む</h2>
+    <form action="/attimuite" method="get">
+        <label for="direction">あなたの方向を選んでください:</label>
+        <select name="direction" id="direction">
+            <option value="上">上</option>
+            <option value="下">下</option>
+            <option value="左">左</option>
+            <option value="右">右</option>
+        </select>
+
+        <!-- 隠しフィールドで現在の勝ち数と総試合数を送信 -->
+        <input type="hidden" name="win" value="<%= win %>">
+        <input type="hidden" name="total" value="<%= total %>">
+        <button type="submit">あっち向いてホイ！</button>
+    </form>
+</body>
+</html>

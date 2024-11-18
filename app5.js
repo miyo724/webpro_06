@@ -29,44 +29,44 @@ app.get("/luck", (req, res) => {
 
 app.get("/janken", (req, res) => {
   let hand = req.query.hand;
-  let win = Number( req.query.win );
-  let total = Number( req.query.total );
-  console.log( {hand, win, total});
-  const num = Math.floor( Math.random() * 3 + 1 );
+  let win = Number(req.query.win) || 0; 
+  let total = Number(req.query.total) || 0; 
+  console.log({ hand, win, total });
+
+  const num = Math.floor(Math.random() * 3 + 1);
   let cpu = '';
-  if( num==1 ) cpu = 'グー';
-  else if( num==2 ) cpu = 'チョキ';
+  if (num == 1) cpu = 'グー';
+  else if (num == 2) cpu = 'チョキ';
   else cpu = 'パー';
-  // ここに勝敗の判定を入れる
-  // 今はダミーで人間の勝ちにしておく
-  let result;
+  let judgement;
   if (hand === cpu) {
-    result = '引き分け';
+      judgement = '引き分け';
   } else if (
-    (hand === 'グー' && cpu === 'チョキ') ||
-    (hand === 'チョキ' && cpu === 'パー') ||
-    (hand === 'パー' && cpu === 'グー')
-  ) 
-  {
-    result = '負け';
+      (hand === 'グー' && cpu === 'チョキ') ||
+      (hand === 'チョキ' && cpu === 'パー') ||
+      (hand === 'パー' && cpu === 'グー')
+  ) {
+      judgement = '勝ち';
+      win += 1; 
+  } else {
+      judgement = '負け';
   }
-  // 
-  let judgement = '勝ち';
-  win += 1;
-  total += 1;
+  total += 1; 
   const display = {
-    your: hand,
-    cpu: cpu,
-    judgement: judgement,
-    win: win,
-    total: total
-  }
-  res.render( 'janken', display );
+      your: hand,
+      cpu: cpu,
+      judgement: judgement,
+      win: win,
+      total: total,
+  };
+
+  res.render('janken', display);
 });
+
 app.get("/attimuite", (req, res) => {
-  let win = Number(req.query.win) || 0;  // 勝ち数
-  let total = Number(req.query.total) || 0;  // 総試合数
-  let playerDirection = req.query.direction;  // ユーザーの方向
+  let win = Number(req.query.win) || 0; 
+  let total = Number(req.query.total) || 0; 
+  let playerDirection = req.query.direction; 
   const validDirections = ['上', '下', '左', '右'];
   
   // プレイヤーが方向を指定していない場合
@@ -75,23 +75,20 @@ app.get("/attimuite", (req, res) => {
       win: win,
       total: total,
       errorMessage: '「上」、「下」、「左」、「右」のいずれかを入力してください。',
-      acchiResult: null  // acchiResultを渡す
+      acchiResult: null  
     });
   }
 
-  // コンピュータのランダムな方向を決定
   const cpuDirection = validDirections[Math.floor(Math.random() * validDirections.length)];
 
   let acchiResult;
   if (playerDirection === cpuDirection) {
     acchiResult = 'あなたの勝ち！';
-    win += 1;  // 勝ち数を増やす
+    win += 1;  
   } else {
     acchiResult = '引き分けです。';
   }
-  total += 1;  // 試合数を増やす
-
-  // データをテンプレートに渡す
+  total += 1;  
   const display = {
     playerDirection: playerDirection,
     cpuDirection: cpuDirection,
@@ -108,24 +105,17 @@ app.get("/count", (req, res) => {
   const app = express();
   const path = require('path');
   
-  // EJSテンプレートエンジンの設定
   app.set('view engine', 'ejs');
-  
-  // views フォルダを指定
+ 
   app.set('views', path.join(__dirname, 'views'));
-  
-  // /count ルートの設定
-  
-      // クエリパラメータから入力された文字列を取得
-      const inputText = req.query.inputText || '';  // 入力がない場合は空文字
-      const charCount = inputText.length;           // 文字数をカウント
-      const doubleCount = charCount * 2;            // その2倍を計算
-  
-      // display 変数を定義して、res.render() に渡す
+
+      const inputText = req.query.inputText || '';  
+      const charCount = inputText.length;  
+      const doubleCount = charCount * 2;            
       const display = {
-          inputText: inputText,   // 入力された文字列
-          charCount: charCount,   // 入力された文字数
-          doubleCount: doubleCount  // 文字数の2倍
+          inputText: inputText,   
+          charCount: charCount,   
+          doubleCount: doubleCount  
       };
   
       res.render('count', display);  

@@ -63,7 +63,6 @@ app.get("/janken", (req, res) => {
   }
   res.render( 'janken', display );
 });
-
 app.get("/attimuite", (req, res) => {
   let win = Number(req.query.win) || 0;  // 勝ち数
   let total = Number(req.query.total) || 0;  // 総試合数
@@ -105,27 +104,33 @@ app.get("/attimuite", (req, res) => {
   res.render('attimuite', display);
 });
 app.get("/count", (req, res) => {
-const express = require('express');
-const app = express();
-const path = require('path');
+  const express = require('express');
+  const app = express();
+  const path = require('path');
+  
+  // EJSテンプレートエンジンの設定
+  app.set('view engine', 'ejs');
+  
+  // views フォルダを指定
+  app.set('views', path.join(__dirname, 'views'));
+  
+  // /count ルートの設定
+  
+      // クエリパラメータから入力された文字列を取得
+      const inputText = req.query.inputText || '';  // 入力がない場合は空文字
+      const charCount = inputText.length;           // 文字数をカウント
+      const doubleCount = charCount * 2;            // その2倍を計算
+  
+      // display 変数を定義して、res.render() に渡す
+      const display = {
+          inputText: inputText,   // 入力された文字列
+          charCount: charCount,   // 入力された文字数
+          doubleCount: doubleCount  // 文字数の2倍
+      };
+  
+      res.render('count', display);  
+  });
 
-// EJSテンプレートエンジンの設定
-app.set('view engine', 'ejs');
-
-// 静的ファイルの提供（JavaScriptファイルなど）
-app.use('/js', express.static(path.join(__dirname, 'public/js')));
-
-// ルート
-app.get('/', (req, res) => {
-    res.render('count');
-})
-});
-
-
-
-
-
-
-
-
+ 
+  
 app.listen(8080, () => console.log("Example app listening on port 8080!"));

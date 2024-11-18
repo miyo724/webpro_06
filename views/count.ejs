@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文字数カウント</title>
+</head>
+<body>
+    <h1>文字数カウント</h1>
+
+    <form action="/count" method="get">
+        <label for="inputText">文字を入力してください:</label>
+        <input type="text" id="inputText" name="inputText" value="<%= inputText %>">
+        <button type="submit">カウント</button>
+    </form>
+
+    <p>入力された文字数: <%= charCount %></p>
+    <p>その2倍: <%= doubleCount %></p>
+
+</body>
+</html>

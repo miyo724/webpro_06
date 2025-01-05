@@ -105,4 +105,14 @@ app.post("/post", (req, res) => {
   res.json( {number: bbs.length } );
 });
 
+app.post("/GET", (req, res) => {
+  const name = req.body.name;
+  const message = req.body.message;
+  console.log( [name, message] );
+  // 本来はここでDBMSに保存する
+  bbs.push( { name: name, message: message } );
+  res.json( {number: bbs.length } );
+});
+
+
 app.listen(8080, () => console.log("Example app listening on port 8080!"));

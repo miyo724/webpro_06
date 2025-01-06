@@ -16,7 +16,7 @@ addTaskButton.addEventListener("click", () => {
 
     // タスクをサーバーにPOST
     const params = {
-        method: "POST",
+        method: "GET",
         headers: {
             "Content-Type": "application/json"
         },

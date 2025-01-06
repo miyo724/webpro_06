@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin
 "use strict";
 
 document.querySelector('#get1').addEventListener('click', () => {
@@ -106,4 +110,8 @@ document.querySelector('#delete').addEventListener('click', () => {
     .then( (response) => {
         console.log( response );
     });
+<<<<<<< HEAD
 });
+=======
+});
+>>>>>>> origin

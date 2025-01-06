@@ -85,4 +85,8 @@ document.querySelector('#check').addEventListener('click', () => {
             })
         }
     });
+<<<<<<< HEAD
 });
+=======
+});
+>>>>>>> origin

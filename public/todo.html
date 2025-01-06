@@ -1,20 +1,39 @@
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ToDoアプリ</title>
-    <script src="./use strict app.js" defer></script>
-    <link rel="stylesheet" href="./todo.css">
+    <script src="/public/todo.js" defer></script>
+    <link rel="stylesheet" href="/public/todo.css">
 </head>
 <body>
     <h1>ToDoアプリ</h1>
-    
+
     <div>
         <label for="task">タスク:</label>
         <input type="text" id="task" placeholder="新しいタスクを入力">
+    </div>
+
+    <div>
+        <label for="tags">タグ（カンマ区切りで複数入力可）:</label>
+        <input type="text" id="tags" placeholder="タグを入力">
+    </div>
+
+    <div>
+        <label for="due-date">締め切り日:</label>
+        <input type="date" id="due-date">
+    </div>
+
+    <div>
         <button id="add-task">タスク追加</button>
+    </div>
+
+    <div>
+        <h3>タグでフィルタリング</h3>
+        <div id="tag-filters">
+            <!-- タグフィルタがここに表示されます -->
+        </div>
     </div>
 
     <ul id="task-list">

@@ -1,4 +1,5 @@
 
+/* 全体のスタイル */
 body {
     font-family: Arial, sans-serif;
     margin: 20px;
@@ -24,6 +25,13 @@ button {
     font-size: 16px;
 }
 
+/* ボタンのホバー効果 */
+button:hover {
+    background-color: #4CAF50;
+    cursor: pointer;
+}
+
+/* タスクリスト */
 ul {
     list-style-type: none;
     padding: 0;
@@ -33,4 +41,33 @@ li {
     padding: 8px;
     background-color: #f1f1f1;
     margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* 完了したタスクのスタイル */
+.completed {
+    text-decoration: line-through;
+    color: gray;
+}
+
+/* タスク削除ボタン */
+li button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+li button:hover {
+    background-color: darkred;
+}
+
+/* エラーメッセージ */
+#error-message {
+    color: red;
+    font-weight: bold;
+    margin-top: 10px;
 }

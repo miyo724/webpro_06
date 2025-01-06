@@ -1,0 +1,50 @@
+\documentclass[uplatex,dvipdfmx]{jsarticle}
+
+\usepackage[uplatex,deluxe]{otf} % UTF
+\usepackage[noalphabet]{pxchfon} % must be after otf package
+\usepackage{stix2} %欧文＆数式フォント
+\usepackage[fleqn,tbtags]{mathtools} % 数式関連 (w/ amsmath)
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{hira-stix} % ヒラギノフォント＆STIX2 フォント代替定義（Warning回避）
+\usepackage{titlesec} % セクションのフォント変更用
+\usepackage{float}
+
+\titleformat*{\section}{\rmfamily\mcfamily\Large} % \sectionのフォントを明朝体に設定
+\titleformat*{\subsection}{\rmfamily\mcfamily\Large} 
+\titleformat*{\subsubsection}{\rmfamily\mcfamily\Large} 
+
+\begin{document}
+
+\title{TO DOアプリの説明書}
+\author{24G1131 御代川 稜}
+\date{2025年01月07日}
+\maketitle
+\rmfamily\mcfamily % 明朝体
+
+\section{利用者向け}
+今回発明したTO DOサイトは，やらなくてはいけないことタスクをタグごとに仕分けることができる．
+また，そのタスクの締め切り日を可視化している．
+タスクを終了した際にはタスクが削除できる．
+ここで具体的に説明していく．
+まずは，タスクの入力方法について説明する．
+「タスクを入力」とかいてある欄にタスクを入力する．
+次にタスクにタグの付け方の説明をする．
+「タグを入力」とかいてある欄にタグを入力する．
+タグはカンマで区切ることで複数入力可である．
+次に締め切り日の入力について説明する．
+欄の右端にあるカレンダーのマークから，締め切り日を入力する．
+もし締め切り日を過ぎていたら，赤色で表示される．
+以上の3つを入力し終えたあと，タスク追加とかいてあるボタンを押す．
+その結果，タグでフィルタリングされて，タスクが出力される．
+
+\section{管理者向け}
+
+\section{開発者向け}
+
+
+%\begin{thebibliography}{2}
+%\bibitem{bib1} 
+%\end{thebibliography}
+
+\end{document}

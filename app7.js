@@ -1,18 +1,19 @@
-<<<<<<< HEAD
 "use strict";
 
+// expressモジュールをインポートしてアプリを初期化
 const express = require("express");
 const app = express();
 
-let tasks = [];  // タスクを格納する配列
-
-// EJSを使用してビューをレンダリングする設定
-app.set('view engine', 'ejs');
+// タスクを格納する配列
+let tasks = [];
 
 // 静的ファイル（HTML、CSS、JS）の提供
 app.use("/public", express.static(__dirname + "/public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());  // JSONデータのパース
+
+// EJSを使用してビューをレンダリングする設定
+app.set('view engine', 'ejs');
 
 // タスクの追加処理
 app.post("/add-task", (req, res) => {
@@ -32,120 +33,98 @@ app.delete("/delete-task", (req, res) => {
     res.json({ tasks: tasks });  // 更新されたタスク一覧を返す
 });
 
-// タスクの取得処理（GETからPOSTに変更）
+// タスクの取得処理（POSTメソッドに変更）
 app.post("/tasks", (req, res) => {
     res.json({ tasks: tasks });  // 現在のタスク一覧を返す
 });
 
-// サーバーを指定のポートで起動
-=======
+// BBS（掲示板）関連の処理
+let bbs = [];  // 本来はDBMSを使用するが、今回はこの変数にデータを蓄える
 
-"use strict";
-const express = require("express");
-const app = express();
-
-let bbs = [];  // 本来はDBMSを使用するが，今回はこの変数にデータを蓄える
-
-app.set('view engine', 'ejs');
-app.use("/public", express.static(__dirname + "/public"));
-app.use(express.urlencoded({ extended: true }));
-
-app.get("/hello1", (req, res) => {
-  const message1 = "Hello world";
-  const message2 = "Bon jour";
-  res.render('show', { greet1:message1, greet2:message2});
+// ここでのapp.get()をapp.post()に変更
+app.post("/hello1", (req, res) => {
+    const message1 = "Hello world";
+    const message2 = "Bon jour";
+    res.render('show', { greet1: message1, greet2: message2 });
 });
 
-app.get("/hello2", (req, res) => {
-  res.render('show', { greet1:"Hello world", greet2:"Bon jour"});
+app.post("/hello2", (req, res) => {
+    res.render('show', { greet1: "Hello world", greet2: "Bon jour" });
 });
 
-app.get("/icon", (req, res) => {
-  res.render('icon', { filename:"./public/Apple_logo_black.svg", alt:"Apple Logo"});
+app.post("/icon", (req, res) => {
+    res.render('icon', { filename: "./public/Apple_logo_black.svg", alt: "Apple Logo" });
 });
 
-app.get("/luck", (req, res) => {
-  const num = Math.floor( Math.random() * 6 + 1 );
-  let luck = '';
-  if( num==1 ) luck = '大吉';
-  else if( num==2 ) luck = '中吉';
-  console.log( 'あなたの運勢は' + luck + 'です' );
-  res.render( 'luck', {number:num, luck:luck} );
+app.post("/luck", (req, res) => {
+    const num = Math.floor(Math.random() * 6 + 1);
+    let luck = '';
+    if (num == 1) luck = '大吉';
+    else if (num == 2) luck = '中吉';
+    console.log('あなたの運勢は' + luck + 'です');
+    res.render('luck', { number: num, luck: luck });
 });
 
-app.get("/janken", (req, res) => {
-  let hand = req.query.hand;
-  let win = Number( req.query.win );
-  let total = Number( req.query.total );
-  console.log( {hand, win, total});
-  const num = Math.floor( Math.random() * 3 + 1 );
-  let cpu = '';
-  if( num==1 ) cpu = 'グー';
-  else if( num==2 ) cpu = 'チョキ';
-  else cpu = 'パー';
-  // ここに勝敗の判定を入れる
-  // 今はダミーで人間の勝ちにしておく
-  let judgement = '勝ち';
-  win += 1;
-  total += 1;
-  const display = {
-    your: hand,
-    cpu: cpu,
-    judgement: judgement,
-    win: win,
-    total: total
-  }
-  res.render( 'janken', display );
+app.post("/janken", (req, res) => {
+    let hand = req.body.hand;
+    let win = Number(req.body.win);
+    let total = Number(req.body.total);
+    console.log({ hand, win, total });
+    const num = Math.floor(Math.random() * 3 + 1);
+    let cpu = '';
+    if (num == 1) cpu = 'グー';
+    else if (num == 2) cpu = 'チョキ';
+    else cpu = 'パー';
+    let judgement = '勝ち';
+    win += 1;
+    total += 1;
+    const display = {
+        your: hand,
+        cpu: cpu,
+        judgement: judgement,
+        win: win,
+        total: total
+    };
+    res.render('janken', display);
 });
 
-app.get("/get_test", (req, res) => {
-  res.json({
-    answer: 0
-  })
+// APIのテスト（GET → POSTに変更）
+app.post("/get_test", (req, res) => {
+    res.json({
+        answer: 0
+    });
 });
 
-app.get("/add", (req, res) => {
-  console.log("GET");
-  console.log( req.query );
-  const num1 = Number( req.query.num1 );
-  const num2 = Number( req.query.num2 );
-  console.log( num1 );
-  console.log( num2 );
-  res.json( {answer: num1+num2} );
-});
-
+// 数値を足す処理（GET → POSTに変更）
 app.post("/add", (req, res) => {
-  console.log("POST");
-  console.log( req.body );
-  const num1 = Number( req.body.num1 );
-  const num2 = Number( req.body.num2 );
-  console.log( num1 );
-  console.log( num2 );
-  res.json( {answer: num1+num2} );
+    console.log("POST");
+    console.log(req.body);
+    const num1 = Number(req.body.num1);
+    const num2 = Number(req.body.num2);
+    console.log(num1);
+    console.log(num2);
+    res.json({ answer: num1 + num2 });
 });
 
-// これより下はBBS関係
+// BBSの操作（メッセージの投稿と取得）
 app.post("/check", (req, res) => {
-  // 本来はここでDBMSに問い合わせる
-  res.json( {number: bbs.length });
+    res.json({ number: bbs.length });
 });
 
 app.post("/read", (req, res) => {
-  // 本来はここでDBMSに問い合わせる
-  const start = Number( req.body.start );
-  console.log( "read -> " + start );
-  if( start==0 ) res.json( {messages: bbs });
-  else res.json( {messages: bbs.slice( start )});
+    const start = Number(req.body.start);
+    console.log("read -> " + start);
+    if (start == 0) res.json({ messages: bbs });
+    else res.json({ messages: bbs.slice(start) });
 });
 
 app.post("/post", (req, res) => {
-  const name = req.body.name;
-  const message = req.body.message;
-  console.log( [name, message] );
-  // 本来はここでDBMSに保存する
-  bbs.push( { name: name, message: message } );
-  res.json( {number: bbs.length } );
+    const name = req.body.name;
+    const message = req.body.message;
+    console.log([name, message]);
+    bbs.push({ name: name, message: message });
+    res.json({ number: bbs.length });
 });
 
->>>>>>> origin
+// サーバーを指定のポートで起動
 app.listen(8080, () => console.log("Example app listening on port 8080!"));
